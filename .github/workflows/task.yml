@@ -1,0 +1,30 @@
+on:
+  pull_request:
+    branches: [ main ]
+    types: [ opened ]
+
+jobs:
+  build:
+    name: Building the task and running checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checking out task branch
+        uses: actions/checkout@v2
+
+      - name: Getting PR Details
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+      - name: Granting gradlew permissions
+        run: chmod +x gradlew
+
+      - name: Running static code analysis
+        run: bash ./gradlew detekt
+
+      - name: Running unit tests
+        run: bash ./gradlew test
+
+      - name: Building task branch
+        run: bash ./gradlew assembleDebug --stacktrace
