@@ -5,6 +5,8 @@ Converted Android Gradle from 7.3.3 to 7.4.2
    `buildSrc` > `.gradle` > `7.3.3`
    `gradle` > `7.3.3`
 
+Run `./gradlew detekt` before every commit
+
 Error: The app for your currently selected variant (Unknown output) is not signed. Please specify a signing configuration for this variant (debug).
 
 `Note` Error occurs while building release version but solution works.
