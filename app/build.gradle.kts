@@ -4,8 +4,8 @@ plugins {
     id(Plugin.kapt)
     id(Plugin.hilt)
     id(Plugin.junit)
-//    id(Plugin.googleServices)
-//    id(Plugin.firebaseCrashlytics)
+    id(Plugin.googleServices)
+    id(Plugin.firebaseCrashlytics)
     id(Plugin.detekt).version(Versions.detekt)
 }
 
@@ -37,6 +37,8 @@ android {
             isTestCoverageEnabled = true
             extra["enableCrashlytics"] = false
             extra["alwaysUpdateBuildId"] = false
+            manifestPlaceholders["cleverTapAccountID"] = ""
+            manifestPlaceholders["cleverTapToken"] = ""
         }
 
         release {
@@ -48,6 +50,8 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
+            manifestPlaceholders["cleverTapAccountID"] = ""
+            manifestPlaceholders["cleverTapToken"] = ""
         }
 
         compileOptions {
@@ -97,11 +101,15 @@ android {
         implementation(AndroidX.datastore)
         implementation(AndroidX.paging)
         implementation(Google.hiltAndroid)
-//        implementation(platform(Google.googleServicesBom))
+        implementation(platform(Google.googleServicesBom))
+        implementation(Google.googleAdsServices)
 
-//        implementation(Firebase.analytics)
-//        implementation(Firebase.crashlytics)
-//        implementation(Firebase.messaging)
+        implementation(Firebase.auth)
+        implementation(Firebase.realtimeDatabase)
+        implementation(Firebase.storage)
+        implementation(Firebase.analytics)
+        implementation(Firebase.crashlytics)
+        implementation(Firebase.messaging)
 
         implementation(ThirdParty.coil)
         implementation(ThirdParty.timber)
@@ -141,12 +149,12 @@ android {
 
         // Analytics and related
 //        implementation(ThirdParty.rudderstack)
-//        implementation(ThirdParty.cleverTap)
+        implementation(ThirdParty.cleverTap)
 //        implementation("com.rudderstack.android.integration:clevertap:1.0.1")
 //        implementation("com.google.code.gson:gson:2.9.1")
 //        implementation("com.android.installreferrer:installreferrer:2.2")
-//        implementation(Google.playInstallReferrer)
-//        implementation(Google.playCore)
+        implementation(Google.playInstallReferrer)
+        implementation(Google.playCore)
         // Includes the visual inspector, a tool useful to monitor your analytics calls when developing
 //        debugImplementation(ThirdParty.avoInspectorDebug)
         // Does not include the visual inspector

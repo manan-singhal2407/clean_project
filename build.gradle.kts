@@ -8,8 +8,8 @@ buildscript {
         classpath(Classpath.kotlinPlugin)
         classpath(Classpath.hilt)
         classpath(Classpath.junit5)
-//        classpath(Classpath.googleServices)
-//        classpath(Classpath.firebaseCrashlytics)
+        classpath(Classpath.googleServices)
+        classpath(Classpath.firebaseCrashlytics)
     }
 }
 

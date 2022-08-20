@@ -12,6 +12,7 @@ object Versions {
     const val junit5 = "1.8.2.1"
     const val googleServices = "4.3.10"
     const val googleServicesBom = "30.1.0"
+    const val googleAdsServices = "21.1.0"
     const val firebaseCrashlytics = "2.9.0"
 
     const val coreKtx = "1.7.0"
