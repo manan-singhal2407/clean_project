@@ -1,4 +1,4 @@
-package com.example.cleanarchitecture
+package com.example.cleanarchitecture.presentation.base
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,16 +8,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.cleanarchitecture.ui.theme.CleanArchitectureTheme
+import com.example.cleanarchitecture.presentation.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalComposeUiApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            CleanArchitectureTheme {
-                // A surface container using the 'background' color from the theme
+            AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -32,12 +32,4 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String) {
     Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun DefaultPreview() {
-    CleanArchitectureTheme {
-        Greeting("Android")
-    }
 }
