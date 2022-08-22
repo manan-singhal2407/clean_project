@@ -29,9 +29,9 @@ AppVersion ->
     versionInfo
 ]
 
-Fixtures -> Cricket/Football/Basketball -> Data -> pushId -> 
+Fixtures -> Cricket/Football/Basketball -> Data -> fixtureId -> 
 [
-    pushId,
+    fixtureId,
     createdAt,
     beginsAt,
     status(upcoming, live, completed, abandoned),

@@ -3,19 +3,20 @@ package com.example.cleanarchitecture.presentation.base
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.cleanarchitecture.presentation.base.navigation.Navigator
+import com.example.cleanarchitecture.presentation.base.navigation.Screen
+import com.example.cleanarchitecture.presentation.screen.home.HomeScreen
+import com.example.cleanarchitecture.presentation.screen.splash.SplashScreen
 import com.example.cleanarchitecture.presentation.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -33,11 +34,16 @@ class MainActivity : ComponentActivity() {
             AppTheme {
                 val navController = rememberNavController()
                 NavigationCallBack(navController)
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                NavHost(
+                    navController = navController,
+                    startDestination = Screen.Splash.route
                 ) {
-                    Text(text = "Hello Manan Singhal")
+                    composable(Screen.Splash.route) {
+                        SplashScreen(viewModel = hiltViewModel())
+                    }
+                    composable(Screen.Home.route) {
+                        HomeScreen()
+                    }
                 }
             }
         }
