@@ -1,3 +1,7 @@
+`TODO`
+
+1. Update rules if OfficialStats inside Fixtures->PrivateContest->Cricket/Football an only be written by role->admin.
+
 Server Database:
 
 AppData -> PrizeBreakup -> pushId -> 
@@ -29,7 +33,7 @@ AppVersion ->
     versionInfo
 ]
 
-Fixtures -> Cricket/Football/Basketball -> Data -> fixtureId -> 
+Fixtures -> Data -> Cricket/Football/Basketball -> fixtureId -> 
 [
     fixtureId,
     createdAt,
@@ -40,7 +44,7 @@ Fixtures -> Cricket/Football/Basketball -> Data -> fixtureId ->
     dream11Url,
     Teams[team1Data, team2Data] {Format: pushId_-_teamName_-_teamCode_-_teamUrl}
 ]
-Fixtures -> Cricket/Football/Basketball -> PrivateContest -> pushId ->
+Fixtures -> PrivateContest -> Cricket/Football/Basketball -> pushId ->
 [
     pushId,
     userId,
@@ -78,7 +82,7 @@ Fixtures -> Cricket/Football/Basketball -> PrivateContest -> pushId ->
         contestType(flexible, forced)
     ]
 ]
-Fixtures -> Cricket/Football/Basketball -> PrizeBreakup -> pushId ->
+Fixtures -> PrizeBreakup -> Cricket/Football/Basketball -> pushId ->
 [
     pushId -> [pushId(String), spots(1-10), percentagePrizePool(Double)]
 ]
@@ -86,8 +90,9 @@ Fixtures -> Cricket/Football/Basketball -> PrizeBreakup -> pushId ->
 `If user is logged in`
 Users -> Data -> userId ->
 [
+    role(String) {admin, user},
     userId,
-    emailId,
+    email,
     profileUrl,
     name,
     createdAt,
