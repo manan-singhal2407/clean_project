@@ -15,7 +15,6 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.cleanarchitecture.data.cache.AppCleaner
 import com.example.cleanarchitecture.presentation.base.navigation.Navigator
 import com.example.cleanarchitecture.presentation.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,19 +26,11 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var navigator: Navigator
 
-    // todo Will remove later (Remove when room database is up to date)
-    @Inject
-    lateinit var appCleaner: AppCleaner
-
     @OptIn(ExperimentalComposeUiApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-
-                // todo Will remove later
-                appCleaner.logout()
-
                 val navController = rememberNavController()
                 NavigationCallBack(navController)
                 Surface(
