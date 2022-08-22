@@ -130,6 +130,9 @@ android {
         kapt(AnnotationProcessing.roomCompiler)
         kapt(AnnotationProcessing.moshiAnnotationProcessor)
 
+        implementation(Google.playInstallReferrer)
+        implementation(Google.playCore)
+
         // TESTING
         testImplementation(UnitTest.jupiterApi)
         testImplementation(UnitTest.junitPlatformSuiteEngine)
@@ -143,14 +146,14 @@ android {
         // compose testing
         implementation(InstrumentationTest.composeUi)
 
+
+
         // Analytics and related
 //        implementation(ThirdParty.rudderstack)
 //        implementation(ThirdParty.cleverTap)
 //        implementation("com.rudderstack.android.integration:clevertap:1.0.1")
 //        implementation("com.google.code.gson:gson:2.9.1")
 //        implementation("com.android.installreferrer:installreferrer:2.2")
-//        implementation(Google.playInstallReferrer)
-//        implementation(Google.playCore)
         // Includes the visual inspector, a tool useful to monitor your analytics calls when developing
 //        debugImplementation(ThirdParty.avoInspectorDebug)
         // Does not include the visual inspector
