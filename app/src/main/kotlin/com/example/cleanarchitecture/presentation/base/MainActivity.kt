@@ -16,7 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.cleanarchitecture.presentation.base.navigation.Navigator
 import com.example.cleanarchitecture.presentation.base.navigation.Screen
 import com.example.cleanarchitecture.presentation.screen.home.HomeScreen
-import com.example.cleanarchitecture.presentation.screen.splash.SplashScreen
+import com.example.cleanarchitecture.presentation.screen.login.LoginScreen
 import com.example.cleanarchitecture.presentation.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -36,10 +36,10 @@ class MainActivity : ComponentActivity() {
                 NavigationCallBack(navController)
                 NavHost(
                     navController = navController,
-                    startDestination = Screen.Splash.route
+                    startDestination = Screen.Login.route
                 ) {
-                    composable(Screen.Splash.route) {
-                        SplashScreen(viewModel = hiltViewModel())
+                    composable(Screen.Login.route) {
+                        LoginScreen(viewModel = hiltViewModel())
                     }
                     composable(Screen.Home.route) {
                         HomeScreen()
