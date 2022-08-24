@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun LoginScreen(viewModel: LoginViewModel) {
+fun LoginScreen(loginViewModel: LoginViewModel) {
     // todo add proper login option and add data to database as well
     // todo text disappears while re-composition not happening
     Box(
@@ -17,7 +17,7 @@ fun LoginScreen(viewModel: LoginViewModel) {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = viewModel.text,
+            text = loginViewModel.text,
             color = Color.White
         )
     }

@@ -17,6 +17,7 @@ import com.example.cleanarchitecture.presentation.base.navigation.Navigator
 import com.example.cleanarchitecture.presentation.base.navigation.Screen
 import com.example.cleanarchitecture.presentation.screen.home.HomeScreen
 import com.example.cleanarchitecture.presentation.screen.login.LoginScreen
+import com.example.cleanarchitecture.presentation.screen.version.VersionScreen
 import com.example.cleanarchitecture.presentation.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -39,10 +40,13 @@ class MainActivity : ComponentActivity() {
                     startDestination = Screen.Login.route
                 ) {
                     composable(Screen.Login.route) {
-                        LoginScreen(viewModel = hiltViewModel())
+                        LoginScreen(loginViewModel = hiltViewModel())
                     }
                     composable(Screen.Home.route) {
-                        HomeScreen()
+                        HomeScreen(homeViewModel = hiltViewModel())
+                    }
+                    composable(Screen.Version.route) {
+                        VersionScreen(versionViewModel = hiltViewModel())
                     }
                 }
             }
@@ -53,28 +57,19 @@ class MainActivity : ComponentActivity() {
     private fun NavigationCallBack(navController: NavHostController) {
         val destination by navigator.destination.collectAsState()
         LaunchedEffect(destination) {
-            if (navController.currentDestination?.route != destination?.route) {
-                if (navController.currentDestination?.route == "login_screen") {
-                    if (!navController.popBackStack()) {
-                        destination?.route?.let {
-                            navController.navigate(it) {
-                                navigator.popUpTo?.let {
-                                    popUpTo(it.route) { inclusive = true }
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    destination?.route?.let {
-                        navController.navigate(it) {
-                            navigator.popUpTo?.let {
-                                popUpTo(it.route) { inclusive = true }
-                            }
-                        }
+            if (navController.currentDestination?.route != destination.route) {
+                navController.navigate(destination.route) {
+                    navigator.popUpTo?.let {
+                        popUpTo(it.route) { inclusive = true }
                     }
                 }
                 navigator.popUpTo = null
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        navigator.destination.value = Screen.Login
     }
 }

@@ -6,14 +6,14 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class AppVersion(
     @Json(name = "versionCode")
-    val versionCode: Int,
+    val versionCode: Long,
 
     @Json(name = "versionName")
     val versionName: String,
 
-    @Json(name = "versionCode")
-    val forceUpdateCode: Int,
+    @Json(name = "forceUpdateCode")
+    val forceUpdateCode: Long,
 
-    @Json(name = "versionCode")
-    val versionInfo: String?
+    @Json(name = "versionInfo")
+    val versionInfo: String
 )

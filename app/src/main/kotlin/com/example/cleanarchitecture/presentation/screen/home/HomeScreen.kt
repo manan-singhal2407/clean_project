@@ -1,22 +1,36 @@
 package com.example.cleanarchitecture.presentation.screen.home
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import com.example.cleanarchitecture.presentation.theme.atom.HomeCard
 
 @Composable
-fun HomeScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+fun HomeScreen(homeViewModel: HomeViewModel) {
+    Column(
+        modifier = Modifier.fillMaxSize()
     ) {
-        Text(
-            text = "Hello Manan Singhal",
-            color = Color.White
-        )
+        HomeCard(text = "Add new match", onClick = {
+        })
+
+        HomeCard(text = "Upcoming Matches", onClick = {
+        })
+
+        HomeCard(text = "Completed Matches", onClick = {
+        })
+
+        HomeCard(text = "Private contest", onClick = {
+        })
+
+        HomeCard(text = "Prize Breakup Details", onClick = {
+        })
+
+        HomeCard(text = "Team Details", onClick = {
+        })
+
+        HomeCard(text = "Version Details", onClick = {
+            homeViewModel.navigateToVersionScreen()
+        })
     }
 }
