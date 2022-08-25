@@ -1,5 +1,6 @@
 package com.example.cleanarchitecture.presentation.screen.version
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,9 @@ import com.example.cleanarchitecture.presentation.theme.padding5dp
 @Composable
 fun VersionScreen(versionViewModel: VersionViewModel) {
     val context = LocalContext.current
+    BackHandler {
+        versionViewModel.onBackPressed()
+    }
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -54,7 +58,7 @@ fun VersionScreen(versionViewModel: VersionViewModel) {
                 .fillMaxWidth()
                 .padding(horizontal = padding16dp),
             onClick = {
-                versionViewModel.saveAppVersion(context, AppVersion(2, "2.0", 1, ""))
+                versionViewModel.saveAppVersion(context, AppVersion(2, "2.0", 1, "Some info"))
             }
         )
     }

@@ -10,6 +10,11 @@ class Navigator {
         this.destination.value = destination
     }
 
+    fun onBackNavigate(destination: NavigationDestination) {
+        this.destination.value = destination
+        this.popUpTo = destination
+    }
+
     fun popAndNavigate(popUpTo: NavigationDestination, navigateTo: NavigationDestination) {
         this.destination.value = navigateTo
         this.popUpTo = popUpTo

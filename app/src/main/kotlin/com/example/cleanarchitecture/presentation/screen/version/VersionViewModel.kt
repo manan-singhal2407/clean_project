@@ -8,6 +8,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cleanarchitecture.data.network.model.AppVersion
+import com.example.cleanarchitecture.presentation.base.navigation.Navigator
+import com.example.cleanarchitecture.presentation.base.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -15,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class VersionViewModel @Inject constructor(
-    private val versionRepository: VersionRepository
+    private val versionRepository: VersionRepository,
+    private val navigator: Navigator
 ) : ViewModel() {
 
     var appVersion by mutableStateOf<AppVersion?>(null)
@@ -41,5 +44,9 @@ class VersionViewModel @Inject constructor(
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun onBackPressed() {
+        navigator.onBackNavigate(Screen.Home)
     }
 }

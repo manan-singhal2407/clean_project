@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
@@ -15,7 +16,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
 import org.json.JSONObject
-import kotlin.collections.HashMap
 
 class VersionRepository(
     private val databaseReference: DatabaseReference,
@@ -51,23 +51,31 @@ class VersionRepository(
 
     fun saveAppVersion(appVersion: AppVersion): Flow<DataState<AppVersion>> = callbackFlow {
 
-        // todo check if we convert model object to map directly using "toMap"
-        val hashMap = HashMap<String, Any>()
-        hashMap["versionCode"] = appVersion.versionCode
-        hashMap["versionName"] = appVersion.versionName
-        hashMap["forceUpdateCode"] = appVersion.forceUpdateCode
-        hashMap["versionInfo"] = appVersion.versionInfo
-
-        databaseReference
-            .child(APP_VERSION_ENDPOINT)
-            .updateChildren(hashMap)
-            .addOnSuccessListener {
-                DataState.success(appVersion)
+        val jsonAdapter: JsonAdapter<AppVersion> = moshi.adapter(AppVersion::class.java)
+        val jsonString = jsonAdapter.toJson(appVersion)
+        val jsonAdapterMap: JsonAdapter<Map<String, Any>> = moshi.adapter(
+            Types.newParameterizedType(
+                MutableMap::class.java,
+                String::class.java,
+                Any::class.java
+            )
+        )
+        CoroutineScope(Dispatchers.IO).launch {
+            runCatching {
+                val hashMap = jsonAdapterMap.fromJson(jsonString)
+                hashMap?.let { uploadMap ->
+                    databaseReference
+                        .child(APP_VERSION_ENDPOINT)
+                        .updateChildren(uploadMap)
+                        .addOnSuccessListener {
+                            DataState.success(appVersion)
+                        }
+                        .addOnFailureListener {
+                            DataState.error("Failed to save data", null)
+                        }
+                }
             }
-            .addOnFailureListener {
-                DataState.error("Failed to save data", null)
-            }
-
+        }
         awaitClose()
     }
 
