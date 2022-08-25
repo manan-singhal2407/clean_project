@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
 import org.json.JSONObject
+import kotlin.collections.HashMap
 
 class VersionRepository(
     private val databaseReference: DatabaseReference,
@@ -45,6 +46,28 @@ class VersionRepository(
                     trySend(DataState.error("Failed to load data")).isSuccess
                 }
             })
+        awaitClose()
+    }
+
+    fun saveAppVersion(appVersion: AppVersion): Flow<DataState<AppVersion>> = callbackFlow {
+
+        // todo check if we convert model object to map directly using "toMap"
+        val hashMap = HashMap<String, Any>()
+        hashMap["versionCode"] = appVersion.versionCode
+        hashMap["versionName"] = appVersion.versionName
+        hashMap["forceUpdateCode"] = appVersion.forceUpdateCode
+        hashMap["versionInfo"] = appVersion.versionInfo
+
+        databaseReference
+            .child(APP_VERSION_ENDPOINT)
+            .updateChildren(hashMap)
+            .addOnSuccessListener {
+                DataState.success(appVersion)
+            }
+            .addOnFailureListener {
+                DataState.error("Failed to save data", null)
+            }
+
         awaitClose()
     }
 

@@ -37,6 +37,7 @@ android {
             isTestCoverageEnabled = true
             extra["enableCrashlytics"] = false
             extra["alwaysUpdateBuildId"] = false
+            buildConfigField("String", "BASE_URL", project.properties["base_url"].toString())
         }
 
         release {
@@ -48,6 +49,7 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
+            buildConfigField("String", "BASE_URL", project.properties["base_url"].toString())
         }
 
         compileOptions {

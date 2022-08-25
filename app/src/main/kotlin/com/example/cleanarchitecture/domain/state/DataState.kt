@@ -1,8 +1,8 @@
 package com.example.cleanarchitecture.domain.state
 
 data class DataState<out T>(
-    var data: @UnsafeVariance T? = null,
-    var error: String? = null,
+    val data: T? = null,
+    val error: String? = null,
     val loading: Boolean = false,
 ) {
     companion object {

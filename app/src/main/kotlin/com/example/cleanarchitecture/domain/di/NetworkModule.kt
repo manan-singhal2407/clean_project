@@ -25,7 +25,7 @@ object NetworkModule {
     @Singleton
     fun provideDatabaseReference(): DatabaseReference {
         return FirebaseDatabase
-            .getInstance("https://cleanarchitecture-24196-default-rtdb.asia-southeast1.firebasedatabase.app/")
+            .getInstance()
             .reference
     }
 }
