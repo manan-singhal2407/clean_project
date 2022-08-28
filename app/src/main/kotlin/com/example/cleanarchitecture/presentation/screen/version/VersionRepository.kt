@@ -51,9 +51,7 @@ class VersionRepository(
 
     fun saveAppVersion(appVersion: AppVersion): Flow<DataState<AppVersion>> = callbackFlow {
 
-        val jsonAdapter: JsonAdapter<AppVersion> = moshi.adapter(AppVersion::class.java)
-        val jsonString = jsonAdapter.toJson(appVersion)
-        val jsonAdapterMap: JsonAdapter<Map<String, Any>> = moshi.adapter(
+        val jsonAdapter: JsonAdapter<Map<String, Any>> = moshi.adapter(
             Types.newParameterizedType(
                 MutableMap::class.java,
                 String::class.java,
@@ -62,7 +60,7 @@ class VersionRepository(
         )
         CoroutineScope(Dispatchers.IO).launch {
             runCatching {
-                val hashMap = jsonAdapterMap.fromJson(jsonString)
+                val hashMap = jsonAdapter.fromJson(moshi.adapter(AppVersion::class.java).toJson(appVersion))
                 hashMap?.let { uploadMap ->
                     databaseReference
                         .child(APP_VERSION_ENDPOINT)
